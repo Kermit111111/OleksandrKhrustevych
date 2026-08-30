@@ -1,10 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="uk">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Олександр Хрустевич | Музикант</title>
 
   <style>
@@ -22,21 +22,15 @@
 
     html {
       scroll-behavior: smooth;
-      background: #080808;
+      background: var(--dark);
     }
 
     body {
       margin: 0;
-      padding: 0;
       overflow-x: hidden;
       color: var(--cream);
       background: var(--dark);
       font-family: Georgia, 'Times New Roman', serif;
-      min-width: 0;
-    }
-
-    img {
-      max-width: 100%;
     }
 
     /* =========================
@@ -56,6 +50,7 @@
         );
       background-position: center;
       background-size: cover;
+      overflow: hidden;
     }
 
     .hero::before {
@@ -63,7 +58,7 @@
       inset: 0;
       z-index: 0;
       content: '';
-      background: url('2.png') center / cover;
+      background: url('2.png') center / cover no-repeat;
       transform: scaleX(-1);
     }
 
@@ -213,21 +208,6 @@
       color: #e9a5a2;
     }
 
-    .cta {
-      padding: 13px 19px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: var(--cream);
-      background: var(--wine);
-      font-size: 10px;
-      transition: background 180ms ease, transform 180ms ease;
-    }
-
-    .cta:hover,
-    .cta:focus-visible {
-      background: var(--wine-light);
-      transform: translateY(-2px);
-    }
-
     /* =========================
        HERO CONTENT
     ========================= */
@@ -246,16 +226,22 @@
       height: auto;
     }
 
+    /*
+      ВИПРАВЛЕНО:
+      градієнт тепер завжди розтягується
+      на всю ширину viewport.
+    */
+
     .hero-gradient {
       display: block;
-      width: 100%;
-      height: auto;
-      margin: 0;
       position: absolute;
       bottom: 0;
       left: 50%;
       z-index: 0;
       width: 100vw;
+      max-width: none;
+      height: auto;
+      margin: 0;
       transform: translateX(-50%);
     }
 
@@ -266,6 +252,7 @@
       z-index: 1;
       display: block;
       width: 100vw;
+      max-width: none;
       height: auto;
       transform: rotate(180deg);
     }
@@ -322,6 +309,7 @@
       z-index: 1;
       display: block;
       width: 100%;
+      max-width: none;
       height: auto;
       transform: rotate(180deg);
     }
@@ -335,6 +323,7 @@
       z-index: 1;
       display: block;
       width: 100%;
+      max-width: none;
       height: auto;
     }
 
@@ -631,8 +620,7 @@
       border-radius: 12px;
       padding: 16px;
       cursor: pointer;
-      transition:
-        all 350ms cubic-bezier(0.25, 1, 0.5, 1);
+      transition: all 350ms cubic-bezier(0.25, 1, 0.5, 1);
       position: relative;
     }
 
@@ -783,10 +771,9 @@
       transform: translateY(-2px);
     }
 
-    /* ==========================================================
-       MOBILE
-       Тут змінюємо ТІЛЬКИ телефон
-    ========================================================== */
+    /* =========================
+       MOBILE MENU
+    ========================= */
 
     .mobile-menu-button,
     .mobile-menu-panel,
@@ -794,70 +781,288 @@
       display: none;
     }
 
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 760px) {
 
       html,
       body {
         width: 100%;
-        min-width: 0;
         max-width: 100%;
         overflow-x: hidden;
         background: #080808;
       }
 
-      body {
-        position: relative;
-      }
-
       .container {
-        width: calc(100% - 36px);
-        max-width: 100%;
+        width: min(100% - 36px, 1250px);
       }
 
-      /* -------------------------
-         Верх — тільки мова
-      ------------------------- */
+      /* Мови справа зверху */
 
       .language-switch {
-        position: fixed;
         top: 16px;
-        left: 14px;
-        z-index: 1000;
+        left: auto;
+        right: 16px;
+        z-index: 110;
         gap: 5px;
       }
 
       .language-switch button {
-        min-width: 31px;
-        height: 27px;
-        padding: 4px 6px;
-        font-size: 9px;
-        background: rgba(0, 0, 0, 0.65);
-        backdrop-filter: blur(8px);
+        min-width: 30px;
+        padding: 5px 7px;
       }
 
-      /* -------------------------
-         Повністю ховаємо desktop nav
-      ------------------------- */
+      /* Десктопне меню та соціальні іконки ховаємо */
 
-      .topbar {
-        padding: 0;
-      }
-
-      .brand,
       .navigation,
       .navigation-decoration,
       .social-icons-group {
-        display: none !important;
+        display: none;
       }
 
-      /* -------------------------
-         Hero
-      ------------------------- */
+      .topbar {
+        padding-top: 0;
+      }
+
+      /* =========================
+         МОБІЛЬНЕ МЕНЮ
+      ========================= */
+
+      .mobile-menu-button {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+
+        height: 52px;
+
+        z-index: 120;
+
+        border: 1px solid rgba(242, 238, 232, 0.28);
+        border-radius: 8px;
+
+        color: var(--cream);
+        background:
+          linear-gradient(
+            135deg,
+            rgba(101, 13, 18, 0.97),
+            rgba(45, 9, 11, 0.97)
+          );
+
+        box-shadow:
+          0 10px 35px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(0, 0, 0, 0.25);
+
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+
+        cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+
+        transition:
+          background 200ms ease,
+          transform 200ms ease,
+          border-color 200ms ease;
+      }
+
+      .mobile-menu-button:active {
+        transform: scale(0.98);
+      }
+
+      .mobile-menu-button:hover {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(163, 42, 44, 0.98),
+            rgba(101, 13, 18, 0.98)
+          );
+        border-color: rgba(242, 238, 232, 0.45);
+      }
+
+      /* Затемнення */
+
+      .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        display: block;
+        z-index: 105;
+
+        background: rgba(0, 0, 0, 0.62);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+          opacity 300ms ease,
+          visibility 300ms ease;
+
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+      }
+
+      .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      /* Панель меню */
+
+      .mobile-menu-panel {
+        position: fixed;
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        z-index: 115;
+
+        width: min(82vw, 360px);
+
+        padding:
+          90px
+          28px
+          90px;
+
+        background:
+          linear-gradient(
+            145deg,
+            #120607 0%,
+            #26090b 48%,
+            #080808 100%
+          );
+
+        border-left: 1px solid rgba(242, 238, 232, 0.16);
+
+        box-shadow:
+          -20px 0 60px rgba(0, 0, 0, 0.55);
+
+        transform: translateX(105%);
+
+        transition:
+          transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .mobile-menu-panel.active {
+        transform: translateX(0);
+      }
+
+      .mobile-menu-title {
+        margin: 0 0 35px;
+
+        font-family: Georgia, serif;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1;
+
+        color: var(--cream);
+        text-transform: uppercase;
+      }
+
+      .mobile-menu-title span {
+        color: #aa5653;
+      }
+
+      .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .mobile-menu-links a {
+        display: block;
+
+        padding: 17px 0;
+
+        color: var(--cream);
+
+        border-bottom:
+          1px solid rgba(242, 238, 232, 0.12);
+
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+
+        letter-spacing: 0.14em;
+
+        text-decoration: none;
+        text-transform: uppercase;
+
+        transition:
+          color 180ms ease,
+          padding-left 180ms ease;
+      }
+
+      .mobile-menu-links a:hover,
+      .mobile-menu-links a:focus-visible {
+        color: #e9a5a2;
+        padding-left: 6px;
+      }
+
+      .mobile-social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: auto;
+        padding-top: 35px;
+      }
+
+      .mobile-social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+
+        border: 1px solid rgba(242, 238, 232, 0.18);
+        border-radius: 5px;
+
+        background: rgba(0, 0, 0, 0.22);
+
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .mobile-social-links a:hover {
+        transform: translateY(-2px);
+        border-color: rgba(242, 238, 232, 0.5);
+      }
+
+      .mobile-social-links img {
+        width: 18px;
+        height: auto;
+      }
+
+      /* =========================
+         MOBILE HERO
+      ========================= */
 
       .hero {
         min-height: 90vh;
-        width: 100%;
+        background-position: 60% center;
         overflow: hidden;
+      }
+
+      .hero::before {
         background-position: 60% center;
       }
 
@@ -866,23 +1071,22 @@
       }
 
       .hero-logo {
-        width: 100%;
         max-width: 100%;
       }
 
-      /* -------------------------
-         About
-      ------------------------- */
-
-      .about {
-        width: 100%;
-        min-height: auto;
-        padding: 150px 0 100px;
-        overflow: hidden;
+      .hero-gradient {
+        width: 100vw;
+        max-width: none;
+        left: 50%;
       }
 
-      .about::before {
-        width: 100%;
+      /* =========================
+         MOBILE ABOUT
+      ========================= */
+
+      .about {
+        padding: 150px 0 100px;
+        overflow: hidden;
       }
 
       .about-grid {
@@ -891,13 +1095,10 @@
       }
 
       .about-copy {
-        width: 100%;
-        max-width: 100%;
         font-size: 15px;
       }
 
       .about-gallery {
-        width: 100%;
         align-items: stretch;
       }
 
@@ -910,15 +1111,15 @@
         height: auto;
       }
 
-      /* -------------------------
-         Contacts
-      ------------------------- */
+      /* =========================
+         MOBILE CONTACTS
+      ========================= */
 
       .contacts {
-        width: 100%;
         min-height: 80vh;
-        padding: 150px 0 110px;
-        overflow: hidden;
+        padding:
+          150px 0
+          110px;
       }
 
       .contacts-content {
@@ -926,44 +1127,24 @@
         gap: 40px;
       }
 
-      .contacts-list {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .contact-email {
-        font-size: 14px !important;
-        word-break: break-word;
-      }
-
-      .festival-text {
-        font-size: 13px;
-        word-break: break-word;
-      }
-
-      /* -------------------------
-         News
-      ------------------------- */
+      /* =========================
+         MOBILE NEWS
+      ========================= */
 
       #recordings {
-        width: 100%;
-        min-height: auto !important;
-        padding: 150px 0 130px !important;
-        overflow: hidden;
+        min-height: 100vh !important;
+        padding:
+          150px 0
+          110px !important;
       }
 
       .news-wrapper {
         grid-template-columns: 1fr;
         gap: 30px;
-        width: 100%;
-      }
-
-      .news-column {
-        width: 100%;
+        margin-top: 30px;
       }
 
       .news-scroll-container {
-        width: 100%;
         height: 220px;
       }
 
@@ -973,8 +1154,8 @@
       }
 
       .news-card-img {
-        width: 85px;
-        height: 65px;
+        width: 90px;
+        height: 68px;
       }
 
       .news-card-title {
@@ -982,9 +1163,8 @@
       }
 
       .news-detail-panel {
-        width: 100%;
-        min-height: auto;
-        padding: 20px;
+        padding: 22px;
+        min-height: 350px;
       }
 
       .news-detail-img {
@@ -995,335 +1175,41 @@
         font-size: 21px;
       }
 
-      /* =====================================================
-         MOBILE MENU BUTTON
-      ===================================================== */
-
-      .mobile-menu-button {
-        position: fixed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-
-        width: calc(100% - 24px);
-        height: 54px;
-
-        z-index: 1100;
-
-        border: 1px solid rgba(242, 238, 232, 0.3);
-        border-radius: 8px;
-
-        color: var(--cream);
-        background:
-          linear-gradient(
-            135deg,
-            rgba(101, 13, 18, 0.98),
-            rgba(55, 10, 12, 0.98)
-          );
-
-        font-family: Arial, sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.25em;
-
-        cursor: pointer;
-
-        box-shadow:
-          0 8px 30px rgba(0, 0, 0, 0.55);
-
-        backdrop-filter: blur(12px);
-
-        transition:
-          background 200ms ease,
-          transform 200ms ease,
-          border-color 200ms ease;
-      }
-
-      .mobile-menu-button:hover,
-      .mobile-menu-button:active {
-        background: var(--wine-light);
-        border-color: rgba(242, 238, 232, 0.55);
-      }
-
-      .mobile-menu-button:active {
-        transform: scale(0.98);
-      }
-
-      /* =====================================================
-         MOBILE MENU PANEL
-      ===================================================== */
-
-      .mobile-menu-panel {
-        position: fixed;
-
-        display: flex;
-        flex-direction: column;
-
-        top: 0;
-        right: 0;
-
-        width: min(82vw, 340px);
-        height: 100dvh;
-
-        z-index: 1050;
-
-        padding:
-          28px
-          24px
-          90px
-          24px;
-
-        background:
-          linear-gradient(
-            145deg,
-            rgba(25, 8, 10, 0.99),
-            rgba(8, 8, 8, 0.99)
-          );
-
-        border-left: 1px solid rgba(242, 238, 232, 0.16);
-
-        box-shadow:
-          -15px 0 45px rgba(0, 0, 0, 0.6);
-
-        overflow-y: auto;
-        overflow-x: hidden;
-
-        transform: translateX(105%);
-        visibility: hidden;
-
-        transition:
-          transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
-          visibility 350ms ease;
-      }
-
-      .mobile-menu-panel.open {
-        transform: translateX(0);
-        visibility: visible;
-      }
-
-      /* -------------------------
-         Заголовок меню
-      ------------------------- */
-
-      .mobile-menu-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding-bottom: 22px;
-        margin-bottom: 24px;
-
-        border-bottom: 1px solid rgba(242, 238, 232, 0.15);
-      }
-
-      .mobile-menu-title {
-        margin: 0;
-
-        color: var(--cream);
-
-        font-family: Georgia, serif;
-        font-size: 25px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-      }
-
-      .mobile-menu-title span {
-        color: #aa5653;
-      }
-
-      .mobile-menu-close {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 38px;
-        height: 38px;
-
-        border: 1px solid rgba(242, 238, 232, 0.25);
-        border-radius: 6px;
-
-        color: var(--cream);
-        background: rgba(255, 255, 255, 0.04);
-
-        font-family: Arial, sans-serif;
-        font-size: 22px;
-        font-weight: 300;
-
-        cursor: pointer;
-
-        transition:
-          background 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .mobile-menu-close:hover {
-        background: rgba(101, 13, 18, 0.7);
-        border-color: rgba(242, 238, 232, 0.45);
-      }
-
-      /* -------------------------
-         Пункти меню
-      ------------------------- */
-
-      .mobile-menu-links {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .mobile-menu-link {
-        display: flex;
-        align-items: center;
-
-        min-height: 52px;
-
-        padding: 0 15px;
-
-        border: 1px solid rgba(242, 238, 232, 0.08);
-        border-radius: 6px;
-
-        color: var(--cream);
-        background: rgba(255, 255, 255, 0.025);
-
-        font-family: Arial, sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.15em;
-
-        text-decoration: none;
-        text-transform: uppercase;
-
-        transition:
-          background 180ms ease,
-          border-color 180ms ease,
-          padding-left 180ms ease;
-      }
-
-      .mobile-menu-link:hover,
-      .mobile-menu-link:active {
-        padding-left: 19px;
-
-        border-color: rgba(170, 86, 83, 0.5);
-        background: rgba(101, 13, 18, 0.6);
-
-        color: var(--cream);
-      }
-
-      /* -------------------------
-         Соцмережі в меню
-      ------------------------- */
-
-      .mobile-social-title {
-        margin:
-          30px 0 12px;
-
-        color: #aa5653;
-
-        font-family: Arial, sans-serif;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-
-        text-transform: uppercase;
-      }
-
-      .mobile-social-links {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
-      .mobile-social-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        min-height: 46px;
-
-        border: 1px solid rgba(242, 238, 232, 0.1);
-        border-radius: 6px;
-
-        background: rgba(255, 255, 255, 0.025);
-
-        transition:
-          background 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .mobile-social-link:hover,
-      .mobile-social-link:active {
-        background: rgba(101, 13, 18, 0.6);
-        border-color: rgba(170, 86, 83, 0.45);
-      }
-
-      .mobile-social-link img {
-        width: 21px;
-        height: 21px;
-        object-fit: contain;
-      }
-
-      /* =====================================================
-         DARK OVERLAY
-      ===================================================== */
-
-      .mobile-menu-overlay {
-        position: fixed;
-
-        display: block;
-
-        inset: 0;
-
-        z-index: 1040;
-
-        background: rgba(0, 0, 0, 0.62);
-
-        opacity: 0;
-        visibility: hidden;
-
-        pointer-events: none;
-
-        transition:
-          opacity 300ms ease,
-          visibility 300ms ease;
-
-        backdrop-filter: blur(2px);
-      }
-
-      .mobile-menu-overlay.open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-
-      /* Коли меню відкрите — сайт не скролиться */
-
-      body.menu-open {
-        overflow: hidden;
+      .news-detail-text {
+        font-size: 14px;
       }
     }
 
     /* =========================
-       TABLET
+       VERY SMALL PHONES
     ========================= */
 
-    @media (min-width: 761px) and (max-width: 900px) {
-      .news-wrapper {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    @media (max-width: 380px) {
+
+      .mobile-menu-panel {
+        width: 88vw;
+        padding-left: 22px;
+        padding-right: 22px;
       }
 
-      .news-scroll-container {
-        height: 220px;
+      .mobile-menu-title {
+        font-size: 25px;
+      }
+
+      .mobile-menu-links a {
+        font-size: 11px;
+      }
+
+      .language-switch {
+        right: 12px;
+      }
+
+      .container {
+        width: calc(100% - 28px);
       }
     }
   </style>
 </head>
-
 
 <body>
 
@@ -1342,6 +1228,7 @@
       >
 
       <!-- LANGUAGE -->
+
       <div class="language-switch" aria-label="Вибір мови">
         <button id="en-button" type="button">EN</button>
         <button id="ua-button" class="active" type="button">UA</button>
@@ -1352,26 +1239,16 @@
         <header class="topbar">
 
           <!-- DESKTOP NAV -->
+
           <nav
             class="navigation"
             id="main-navigation"
             aria-label="Головна навігація"
           >
-            <a href="#about" id="about-link">
-              Про мене
-            </a>
-
-            <a href="#contacts" id="contacts-link">
-              Контакти
-            </a>
-
-            <a href="#recordings" id="music-link">
-              Новини
-            </a>
-
-            <a href="#concerts" id="concerts-link">
-              Концерти
-            </a>
+            <a href="#about" id="about-link">Про мене</a>
+            <a href="#contacts" id="contacts-link">Контакти</a>
+            <a href="#recordings" id="music-link">Новини</a>
+            <a href="#concerts" id="concerts-link">Концерти</a>
           </nav>
 
           <img
@@ -1380,7 +1257,8 @@
             alt=""
           >
 
-          <!-- DESKTOP SOCIAL -->
+          <!-- DESKTOP SOCIALS -->
+
           <div class="social-icons-group">
 
             <a
@@ -1389,11 +1267,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="YouTubeIcon.png"
-                alt="YouTube"
-              >
+              <img class="social-icon" src="YouTubeIcon.png" alt="YouTube">
             </a>
 
             <a
@@ -1402,11 +1276,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="TikTokIcon.png"
-                alt="TikTok"
-              >
+              <img class="social-icon" src="TikTokIcon.png" alt="TikTok">
             </a>
 
             <a
@@ -1415,11 +1285,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="MusicIcon.png"
-                alt="Music"
-              >
+              <img class="social-icon" src="MusicIcon.png" alt="Music">
             </a>
 
             <a
@@ -1428,11 +1294,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="SpotifyIkon.png"
-                alt="Spotify"
-              >
+              <img class="social-icon" src="SpotifyIkon.png" alt="Spotify">
             </a>
 
             <a
@@ -1441,11 +1303,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="FaceBookIcon.png"
-                alt="Facebook"
-              >
+              <img class="social-icon" src="FaceBookIcon.png" alt="Facebook">
             </a>
 
             <a
@@ -1454,11 +1312,7 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="InstagramIcon.png"
-                alt="Instagram"
-              >
+              <img class="social-icon" src="InstagramIcon.png" alt="Instagram">
             </a>
 
             <a
@@ -1467,17 +1321,12 @@
               rel="noopener noreferrer"
               class="social-link"
             >
-              <img
-                class="social-icon"
-                src="AmazonIcon.png"
-                alt="Amazon"
-              >
+              <img class="social-icon" src="AmazonIcon.png" alt="Amazon">
             </a>
 
           </div>
 
         </header>
-
 
         <div class="hero-content">
 
@@ -1497,7 +1346,6 @@
         </div>
 
       </div>
-
     </section>
 
 
@@ -1526,24 +1374,16 @@
         id="about-title-image"
       >
 
-      <div
-        class="container about-grid"
-        id="concerts"
-      >
+      <div class="container about-grid" id="concerts">
 
         <div class="about-titles-wrap">
 
           <h2 id="about-title">
-            Музика,
-            <span>що</span>
-            <br>
+            Музика, <span>що</span><br>
             залишається
           </h2>
 
-          <div
-            class="about-subtitles"
-            id="about-subtitles"
-          >
+          <div class="about-subtitles">
 
             <span
               class="about-subtitle-item"
@@ -1560,7 +1400,6 @@
             </span>
 
           </div>
-
 
           <div class="about-gallery">
 
@@ -1585,67 +1424,76 @@
         </div>
 
 
-        <div
-          class="about-copy"
-          id="music"
-        >
+        <div class="about-copy" id="music">
 
-          <p id="bio-first">
-            Народився 1983 року в місті Старокостянтинів Хмельницької області.
+          <p>
+            Народився 1983 року в місті Старокостянтинів
+            Хмельницької області.
           </p>
 
-          <p id="bio-second">
-            Музиці навчається з 6 років. Після закінчення Старокостянтинівської музичної школи (клас викладача Реца Л.Ф.) та Хмельницького музичного училища (клас викладача Голоднюка О.М.) у 2001-2006 рр. навчався у Національній музичній академії України імені П.І. Чайковського у класі професора, Народного артиста України Володимира Бесфамільнова. Під його керівництвом у 2009 році закінчив асистентуру-стажировку НМАУ імені П.І. Чайковського.
+          <p>
+            Музиці навчається з 6 років. Після закінчення
+            Старокостянтинівської музичної школи
+            (клас викладача Реца Л.Ф.) та Хмельницького
+            музичного училища (клас викладача Голоднюка О.М.)
+            у 2001-2006 рр. навчався у Національній музичній
+            академії України імені П.І. Чайковського у класі
+            професора, Народного артиста України Володимира
+            Бесфамільнова. Під його керівництвом у 2009 році
+            закінчив асистентуру-стажировку НМАУ
+            імені П.І. Чайковського.
           </p>
 
-          <p id="bio-third">
-            З 2006 року працює у Національному заслуженому академічному ансамблі танцю України імені П.П. Вірського. У 2016 році присвоєно почесне звання «Заслужений артист України».
+          <p>
+            З 2006 року працює у Національному заслуженому
+            академічному ансамблі танцю України
+            імені П.П. Вірського. У 2016 році присвоєно
+            почесне звання «Заслужений артист України».
           </p>
 
-          <p id="bio-fourth">
-            З 2023 року працює артистом оркестру Національного заслуженого академічного українського народного хору України імені Г.Г. Верьовки.
+          <p>
+            З 2023 року працює артистом оркестру
+            Національного заслуженого академічного
+            українського народного хору України
+            імені Г.Г. Верьовки.
           </p>
 
-          <p id="bio-fifth">
-            <strong>
-              Лауреат Міжнародних конкурсів:
-            </strong>
+          <p>
+            <strong>Лауреат Міжнародних конкурсів:</strong>
           </p>
 
-          <ul id="bio-list">
-
-            <li>
-              «Golden Accordion» (Нью-Йорк, США 3-премія);
-            </li>
-
-            <li>
-              «Грай мій баян» (Ржев, Росія 1-премія);
-            </li>
-
-            <li>
-              «Від бароко до джазу» (Вроцлав, Польща 1-премія);
-            </li>
-
-            <li>
-              «Кубок Кривбасу» (Кривий Ріг, Україна 2-премія);
-            </li>
-
-            <li>
-              «AccoHoliday» (Київ, Україна 1-премія).
-            </li>
-
+          <ul>
+            <li>«Golden Accordion» (Нью-Йорк, США 3-премія);</li>
+            <li>«Грай мій баян» (Ржев, Росія 1-премія);</li>
+            <li>«Від бароко до джазу» (Вроцлав, Польща 1-премія);</li>
+            <li>«Кубок Кривбасу» (Кривий Ріг, Україна 2-премія);</li>
+            <li>«AccoHoliday» (Київ, Україна 1-премія).</li>
           </ul>
 
-          <p id="bio-sixth">
-            Гастролював з концертами у містах: України, Польщі, Чехії, Австрії, Німеччині, Норвегії, Іспанії, Італії, Литві, Росії, Швейцарії, Бразилії, Голландії, Туреччині, Сербії, Португалії, Словаччині, Малайзії, Бельгії, Америці.
+          <p>
+            Гастролював з концертами у містах: України,
+            Польщі, Чехії, Австрії, Німеччині, Норвегії,
+            Іспанії, Італії, Литві, Росії, Швейцарії,
+            Бразилії, Голландії, Туреччині, Сербії,
+            Португалії, Словаччині, Малайзії, Бельгії,
+            Америці.
           </p>
 
-          <p id="bio-seventh">
-            Останніми яскравими творчими досягненнями стали його виступи з Боббі МакФерріном, участь у Міжнародному фестивалі «Київські літні музичні вечори» та у Міжнародному літньому фестивалі «Нова музична генерація» (Вільнюс, Литва), у Міжнародному музичному фестивалі у Ньюпорті (США).
+          <p>
+            Останніми яскравими творчими досягненнями стали
+            його виступи з Боббі МакФерріном, участь у
+            Міжнародному фестивалі «Київські літні музичні
+            вечори» та у Міжнародному літньому фестивалі
+            «Нова музична генерація» (Вільнюс, Литва),
+            у Міжнародному музичному фестивалі у Ньюпорті
+            (США).
           </p>
 
-          <p id="bio-eighth">
-            Широке визнання Олександр отримав після розміщення в інтернеті свого власного відео – на сьогодні його переглянуло вже більше 17 мільйонів користувачів зі всього світу.
+          <p>
+            Широке визнання Олександр отримав після розміщення
+            в інтернеті свого власного відео – на сьогодні
+            його переглянуло вже більше 17 мільйонів
+            користувачів зі всього світу.
           </p>
 
         </div>
@@ -1659,10 +1507,7 @@
          CONTACTS
     ========================= -->
 
-    <section
-      class="contacts"
-      id="contacts"
-    >
+    <section class="contacts" id="contacts">
 
       <img
         class="contacts-top-gradient"
@@ -1686,12 +1531,9 @@
       <div class="container contacts-content">
 
         <h2 id="contacts-title">
-          Будьмо
-          <span>на</span>
-          <br>
+          Будьмо <span>на</span><br>
           зв’язку
         </h2>
-
 
         <div class="contacts-list">
 
@@ -1722,18 +1564,14 @@
               rel="noopener noreferrer"
               class="festival-logo-link"
             >
-
               <img
                 class="festival-logo-img"
                 src="LogoMusical.png"
                 alt="New Musical Generation"
               >
-
             </a>
 
-
-            <p class="festival-text">
-“New Musical Generation”
+            <p class="festival-text">“New Musical Generation”
 
 The member of the International Artist Managers Association
 
@@ -1749,9 +1587,7 @@ Executive Director
 
 Mobile ph. +370 67883737
 
-info (at) nmgeneration.com
-            </p>
-
+info (at) nmgeneration.com</p>
 
             <a
               href="http://www.nmgeneration.com"
@@ -1768,14 +1604,12 @@ info (at) nmgeneration.com
             class="contact-block"
             style="border-bottom: none;"
           >
-
             <a
               href="#home"
               id="back-home-link"
             >
               На головну
             </a>
-
           </div>
 
         </div>
@@ -1789,10 +1623,7 @@ info (at) nmgeneration.com
          NEWS
     ========================= -->
 
-    <section
-      class="about"
-      id="recordings"
-    >
+    <section class="about" id="recordings">
 
       <img
         class="about-top-gradient"
@@ -1813,7 +1644,6 @@ info (at) nmgeneration.com
         id="recordings-title-image"
       >
 
-
       <div class="container">
 
         <div class="news-wrapper">
@@ -1829,8 +1659,7 @@ info (at) nmgeneration.com
             <div
               class="news-scroll-container"
               id="news-list-container"
-            >
-            </div>
+            ></div>
 
             <img
               class="news-decoration-img"
@@ -1873,11 +1702,11 @@ info (at) nmgeneration.com
                 class="news-detail-text"
                 id="detail-text"
               >
-                Після 14 років офіційний сайт Олександра Хрустевича повністю оновився.
+                Після 14 років цифровий простір артиста
+                повністю оновився...
               </p>
 
             </div>
-
 
             <a
               href="#"
@@ -1901,9 +1730,9 @@ info (at) nmgeneration.com
   </main>
 
 
-  <!-- =========================================================
+  <!-- =========================
        MOBILE MENU
-  ========================================================== -->
+  ========================= -->
 
   <div
     class="mobile-menu-overlay"
@@ -1917,162 +1746,91 @@ info (at) nmgeneration.com
     aria-hidden="true"
   >
 
-    <div class="mobile-menu-header">
+    <h2 class="mobile-menu-title">
+      <span>МЕНЮ</span>
+    </h2>
 
-      <h2 class="mobile-menu-title">
-        <span>Меню</span>
-      </h2>
+    <nav class="mobile-menu-links">
 
-      <button
-        class="mobile-menu-close"
-        id="mobile-menu-close"
-        type="button"
-        aria-label="Закрити меню"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <nav
-      class="mobile-menu-links"
-      aria-label="Мобільна навігація"
-    >
-
-      <a
-        class="mobile-menu-link"
-        href="#home"
-      >
+      <a href="#home" data-menu-link>
         Головна
       </a>
 
-      <a
-        class="mobile-menu-link"
-        href="#about"
-      >
+      <a href="#about" data-menu-link>
         Про мене
       </a>
 
-      <a
-        class="mobile-menu-link"
-        href="#recordings"
-      >
+      <a href="#contacts" data-menu-link>
+        Контакти
+      </a>
+
+      <a href="#recordings" data-menu-link>
         Новини
       </a>
 
-      <a
-        class="mobile-menu-link"
-        href="#concerts"
-      >
+      <a href="#concerts" data-menu-link>
         Концерти
-      </a>
-
-      <a
-        class="mobile-menu-link"
-        href="#contacts"
-      >
-        Контакти
       </a>
 
     </nav>
 
 
-    <div class="mobile-social-title">
-      Соціальні мережі
-    </div>
-
-
     <div class="mobile-social-links">
 
       <a
-        class="mobile-social-link"
         href="https://www.youtube.com/@Hrustevich"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="YouTubeIcon.png"
-          alt="YouTube"
-        >
+        <img src="YouTubeIcon.png" alt="YouTube">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://www.tiktok.com/@hrustevich"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="TikTokIcon.png"
-          alt="TikTok"
-        >
+        <img src="TikTokIcon.png" alt="TikTok">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://itunes.apple.com/album/id/1613936663"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="MusicIcon.png"
-          alt="Music"
-        >
+        <img src="MusicIcon.png" alt="Music">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://open.spotify.com/album/6V7LOiT34e0nqXaGkjG51h"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="SpotifyIkon.png"
-          alt="Spotify"
-        >
+        <img src="SpotifyIkon.png" alt="Spotify">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://facebook.com/share/188FoynMZ8/?mibextid=wwXIfr"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="FaceBookIcon.png"
-          alt="Facebook"
-        >
+        <img src="FaceBookIcon.png" alt="Facebook">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://www.instagram.com/oleksandrhrustevich"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="InstagramIcon.png"
-          alt="Instagram"
-        >
+        <img src="InstagramIcon.png" alt="Instagram">
       </a>
 
-
       <a
-        class="mobile-social-link"
         href="https://music.amazon.com/artists/B09TB76X8V/alexander-hrustevich"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src="AmazonIcon.png"
-          alt="Amazon"
-        >
+        <img src="AmazonIcon.png" alt="Amazon">
       </a>
 
     </div>
@@ -2080,7 +1838,9 @@ info (at) nmgeneration.com
   </aside>
 
 
-  <!-- Кнопка меню -->
+  <!-- Кнопка меню навмисно знаходиться після панелі,
+       тому вона буде поверх меню -->
+
   <button
     class="mobile-menu-button"
     id="mobile-menu-button"
@@ -2092,32 +1852,22 @@ info (at) nmgeneration.com
   </button>
 
 
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================== -->
-
   <script>
 
-    /* =========================================================
-       NEWS
-    ========================================================== */
+    /* =========================
+       NEWS DATA
+    ========================= */
 
     const newsData = {
 
       ua: [
         {
           date: "1 Вересня 2026",
-
-          title:
-            "Сайт Олександра Хрустевича отримав новий вигляд!",
-
+          title: "Сайт Олександра Хрустевича отримав новий вигляд!",
           text:
             "Після 14 років цифровий простір артиста зазнав повної трансформації. Новий сучасний дизайн, покращена навігація та абсолютно свіжий погляд на подачу музичної творчості створені для того, щоб кожен шанувальник міг ще ближче доторкнутися до мистецтва баяна.",
-
           img: "3.png",
-
           link: "",
-
           linkText: ""
         }
       ],
@@ -2125,17 +1875,12 @@ info (at) nmgeneration.com
       en: [
         {
           date: "September 1, 2026",
-
           title:
             "The website of Oleksandr Khrustevych has been given a fresh new look!",
-
           text:
             "After 14 years, the artist’s digital space has undergone a complete transformation. A modern new design, improved navigation, and a fresh approach to presenting his musical work have been created to bring every admirer even closer to the art of the button accordion.",
-
           img: "3.png",
-
           link: "",
-
           linkText: ""
         }
       ]
@@ -2144,20 +1889,21 @@ info (at) nmgeneration.com
 
 
     let currentLang = 'ua';
-
     let activeNewsIndex = 0;
 
+
+    /* =========================
+       NEWS
+    ========================= */
 
     function renderNewsList() {
 
       const container =
         document.getElementById('news-list-container');
 
-      const data =
-        newsData[currentLang];
+      const data = newsData[currentLang];
 
       container.innerHTML = '';
-
 
       data.forEach((item, index) => {
 
@@ -2165,13 +1911,11 @@ info (at) nmgeneration.com
           document.createElement('div');
 
         card.className =
-          `news-card ${index === activeNewsIndex ? 'active' : ''}`;
+          `news-card ${
+            index === activeNewsIndex ? 'active' : ''
+          }`;
 
-        card.setAttribute(
-          'data-id',
-          index
-        );
-
+        card.setAttribute('data-id', index);
 
         card.innerHTML = `
 
@@ -2195,7 +1939,6 @@ info (at) nmgeneration.com
 
         `;
 
-
         card.addEventListener(
           'click',
           () => {
@@ -2206,7 +1949,6 @@ info (at) nmgeneration.com
 
           }
         );
-
 
         container.appendChild(card);
 
@@ -2225,7 +1967,6 @@ info (at) nmgeneration.com
           'news-detail-panel'
         );
 
-
       panel.style.animation = 'none';
 
       panel.offsetHeight;
@@ -2233,73 +1974,56 @@ info (at) nmgeneration.com
       panel.style.animation =
         'fadeIn 400ms ease';
 
-
       document.getElementById(
         'detail-img'
       ).src = data.img;
-
 
       document.getElementById(
         'detail-date'
       ).textContent = data.date;
 
-
       document.getElementById(
         'detail-title'
       ).textContent = data.title;
 
-
       document.getElementById(
         'detail-text'
       ).textContent = data.text;
-
 
       const linkEl =
         document.getElementById(
           'detail-link'
         );
 
-
-      if (
-        data.link &&
-        data.linkText
-      ) {
+      if (data.link && data.linkText) {
 
         linkEl.href = data.link;
-
-        linkEl.textContent =
-          data.linkText;
-
-        linkEl.style.display =
-          'inline-flex';
+        linkEl.textContent = data.linkText;
+        linkEl.style.display = 'inline-flex';
 
       } else {
 
-        linkEl.style.display =
-          'none';
+        linkEl.style.display = 'none';
 
       }
 
-
       document
         .querySelectorAll('.news-card')
-        .forEach(
-          (card, idx) => {
+        .forEach((card, idx) => {
 
-            card.classList.toggle(
-              'active',
-              idx === activeNewsIndex
-            );
+          card.classList.toggle(
+            'active',
+            idx === activeNewsIndex
+          );
 
-          }
-        );
+        });
 
     }
 
 
-    /* =========================================================
+    /* =========================
        TRANSLATIONS
-    ========================================================== */
+    ========================= */
 
     const translations = {
 
@@ -2420,7 +2144,7 @@ info (at) nmgeneration.com
 
         bio: [
 
-          "Born in 1983 in the city of Starokostyantyniv, Khmelnytskyi Region.",
+          "Born in 1983 in the city of Starokyiv, Khmelnytskyi Region.",
 
           "He has been studying music since the age of 6. After graduating from the Starokostyantyniv Music School (class of teacher L.F. Rets) and the Khmelnytskyi Music College (class of teacher O.M. Holodniuk), from 2001 to 2006 he studied at the National Music Academy of Ukraine named after P.I. Tchaikovsky in the class of Professor and People's Artist of Ukraine Volodymyr Besfamilnov. Under his guidance, he completed his assistantship-internship at the Tchaikovsky National Music Academy of Ukraine in 2009.",
 
@@ -2455,9 +2179,9 @@ info (at) nmgeneration.com
     };
 
 
-    /* =========================================================
+    /* =========================
        LANGUAGE
-    ========================================================== */
+    ========================= */
 
     function setLanguage(language) {
 
@@ -2467,7 +2191,6 @@ info (at) nmgeneration.com
 
         const content =
           translations[language];
-
 
         document.documentElement.lang =
           language;
@@ -2481,42 +2204,35 @@ info (at) nmgeneration.com
         ).textContent =
           content.aboutLink;
 
-
         document.getElementById(
           'music-link'
         ).textContent =
           content.musicLink;
-
 
         document.getElementById(
           'concerts-link'
         ).textContent =
           content.concertsLink;
 
-
         document.getElementById(
           'contacts-link'
         ).textContent =
           content.contactsLink;
-
 
         document.getElementById(
           'contacts-title'
         ).innerHTML =
           content.contactsTitle;
 
-
         document.getElementById(
           'email-note-text'
         ).textContent =
           content.emailNoteText;
 
-
         document.getElementById(
           'back-home-link'
         ).textContent =
           content.backHomeLink;
-
 
         document.getElementById(
           'main-navigation'
@@ -2533,7 +2249,6 @@ info (at) nmgeneration.com
             ? 'LogoMenuEN.png'
             : 'LogoMenuUA.png';
 
-
         document.getElementById(
           'hero-logo'
         ).alt =
@@ -2547,12 +2262,10 @@ info (at) nmgeneration.com
         ).innerHTML =
           content.aboutTitle;
 
-
         document.getElementById(
           'sub-honor'
         ).textContent =
           content.subtitles[0];
-
 
         document.getElementById(
           'sub-laureate'
@@ -2566,7 +2279,6 @@ info (at) nmgeneration.com
           language === 'en'
             ? 'AboutMeEN.png'
             : 'AboutMeUA.png';
-
 
         document.getElementById(
           'about-title-image'
@@ -2583,7 +2295,6 @@ info (at) nmgeneration.com
             ? 'ContactsEN.png'
             : 'ContactsUA.png';
 
-
         document.getElementById(
           'contacts-title-image'
         ).alt =
@@ -2599,7 +2310,6 @@ info (at) nmgeneration.com
             ? 'NewsEN.png'
             : 'NewsUA.png';
 
-
         document.getElementById(
           'recordings-title-image'
         ).alt =
@@ -2610,7 +2320,6 @@ info (at) nmgeneration.com
 
         const musicContainer =
           document.getElementById('music');
-
 
         musicContainer.innerHTML = `
 
@@ -2629,13 +2338,11 @@ info (at) nmgeneration.com
           </p>
 
           <ul>
-
             ${content.competitions
               .map(
                 item => `<li>${item}</li>`
               )
               .join('')}
-
           </ul>
 
           <p>${content.bio[4]}</p>
@@ -2654,7 +2361,6 @@ info (at) nmgeneration.com
           language === 'en'
         );
 
-
         document.getElementById(
           'ua-button'
         ).classList.toggle(
@@ -2667,40 +2373,6 @@ info (at) nmgeneration.com
 
         updateActiveNews();
 
-
-        /* Мобільне меню */
-
-        document
-          .querySelectorAll(
-            '.mobile-menu-link'
-          )
-          .forEach(link => {
-
-            const href =
-              link.getAttribute('href');
-
-            if (href === '#about') {
-              link.textContent =
-                content.aboutLink;
-            }
-
-            if (href === '#recordings') {
-              link.textContent =
-                content.musicLink;
-            }
-
-            if (href === '#concerts') {
-              link.textContent =
-                content.concertsLink;
-            }
-
-            if (href === '#contacts') {
-              link.textContent =
-                content.contactsLink;
-            }
-
-          });
-
       } catch (error) {
 
         console.error(
@@ -2712,6 +2384,10 @@ info (at) nmgeneration.com
 
     }
 
+
+    /* =========================
+       DESKTOP LANGUAGE BUTTONS
+    ========================= */
 
     document
       .getElementById('en-button')
@@ -2733,9 +2409,9 @@ info (at) nmgeneration.com
       );
 
 
-    /* =========================================================
+    /* =========================
        MOBILE MENU
-    ========================================================== */
+    ========================= */
 
     const mobileMenuButton =
       document.getElementById(
@@ -2747,11 +2423,6 @@ info (at) nmgeneration.com
         'mobile-menu-panel'
       );
 
-    const mobileMenuClose =
-      document.getElementById(
-        'mobile-menu-close'
-      );
-
     const mobileMenuOverlay =
       document.getElementById(
         'mobile-menu-overlay'
@@ -2760,17 +2431,9 @@ info (at) nmgeneration.com
 
     function openMobileMenu() {
 
-      mobileMenuPanel.classList.add(
-        'open'
-      );
+      mobileMenuPanel.classList.add('active');
 
-      mobileMenuOverlay.classList.add(
-        'open'
-      );
-
-      document.body.classList.add(
-        'menu-open'
-      );
+      mobileMenuOverlay.classList.add('active');
 
       mobileMenuPanel.setAttribute(
         'aria-hidden',
@@ -2781,23 +2444,18 @@ info (at) nmgeneration.com
         'aria-expanded',
         'true'
       );
+
+      document.body.style.overflow =
+        'hidden';
 
     }
 
 
     function closeMobileMenu() {
 
-      mobileMenuPanel.classList.remove(
-        'open'
-      );
+      mobileMenuPanel.classList.remove('active');
 
-      mobileMenuOverlay.classList.remove(
-        'open'
-      );
-
-      document.body.classList.remove(
-        'menu-open'
-      );
+      mobileMenuOverlay.classList.remove('active');
 
       mobileMenuPanel.setAttribute(
         'aria-hidden',
@@ -2808,6 +2466,9 @@ info (at) nmgeneration.com
         'aria-expanded',
         'false'
       );
+
+      document.body.style.overflow =
+        '';
 
     }
 
@@ -2816,11 +2477,12 @@ info (at) nmgeneration.com
       'click',
       function () {
 
-        if (
+        const isOpen =
           mobileMenuPanel.classList.contains(
-            'open'
-          )
-        ) {
+            'active'
+          );
+
+        if (isOpen) {
 
           closeMobileMenu();
 
@@ -2834,23 +2496,15 @@ info (at) nmgeneration.com
     );
 
 
-    mobileMenuClose.addEventListener(
-      'click',
-      closeMobileMenu
-    );
-
-
     mobileMenuOverlay.addEventListener(
       'click',
       closeMobileMenu
     );
 
 
-    /* Закривати меню після переходу */
-
     document
       .querySelectorAll(
-        '.mobile-menu-link'
+        '[data-menu-link]'
       )
       .forEach(link => {
 
@@ -2866,14 +2520,15 @@ info (at) nmgeneration.com
       });
 
 
-    /* ESC закриває меню */
-
     document.addEventListener(
       'keydown',
       function (event) {
 
         if (
-          event.key === 'Escape'
+          event.key === 'Escape' &&
+          mobileMenuPanel.classList.contains(
+            'active'
+          )
         ) {
 
           closeMobileMenu();
@@ -2884,9 +2539,9 @@ info (at) nmgeneration.com
     );
 
 
-    /* =========================================================
-       START
-    ========================================================== */
+    /* =========================
+       INIT
+    ========================= */
 
     renderNewsList();
 
@@ -2895,4 +2550,6 @@ info (at) nmgeneration.com
   </script>
 
 </body>
+
 </html>
+```
