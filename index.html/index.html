@@ -55,16 +55,15 @@
     .container {
       position: relative;
       z-index: 2;
-      width: min(100% - 48px, 1250px);
+      width: min(100% - 64px, 1250px);
       margin: 0 auto;
     }
 
-    /* Адаптивне меню мобільного типу (бургер) */
     .language-switch {
-      position: absolute;
+      position: fixed;
       top: 24px;
-      left: 24px;
-      z-index: 25;
+      left: clamp(18px, 3vw, 42px);
+      z-index: 20;
       display: flex;
       gap: 6px;
     }
@@ -89,39 +88,53 @@
     .topbar {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 24px;
+      justify-content: space-between;
+      gap: 32px;
       padding-top: 24px;
-      position: relative;
-      z-index: 20;
     }
 
-    .navigation-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--cream);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .navigation {
+      position: fixed;
+      top: 24px;
+      right: clamp(18px, 3vw, 42px);
+      z-index: 20;
       display: flex;
-      justify-content: flex-end;
-      gap: 24px;
-      width: 100%;
+      justify-content: space-between;
+      width: 310px;
     }
 
     .navigation-decoration {
-      width: 280px;
+      position: fixed;
+      top: 48px;
+      right: clamp(18px, 3vw, 42px);
+      z-index: 20;
+      width: min(100% - 36px, 310px);
       height: auto;
-      display: block;
     }
 
     .social-icons-group {
+      position: fixed;
+      top: 76px;
+      right: clamp(18px, 3vw, 42px);
+      z-index: 20;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 10px;
-      width: 100%;
+      width: min(100% - 36px, 310px);
     }
 
     .social-link {
@@ -155,11 +168,25 @@
       color: var(--cream);
       font-size: 11px;
       transition: color 180ms ease;
-      white-space: nowrap;
     }
 
     .navigation a:hover,
     .navigation a:focus-visible { color: #e9a5a2; }
+
+    .cta {
+      padding: 13px 19px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--cream);
+      background: var(--wine);
+      font-size: 10px;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .cta:hover,
+    .cta:focus-visible {
+      background: var(--wine-light);
+      transform: translateY(-2px);
+    }
 
     .hero-content {
       display: flex;
@@ -167,7 +194,6 @@
       flex-direction: column;
       justify-content: flex-end;
       padding-bottom: 8vh;
-      padding-top: 140px;
     }
 
     .hero-logo {
@@ -177,14 +203,16 @@
     }
 
     .hero-gradient {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0;
       position: absolute;
       bottom: 0;
       left: 50%;
       z-index: 0;
       width: 100vw;
-      height: auto;
       transform: translateX(-50%);
-      pointer-events: none;
     }
 
     .hero-top-gradient {
@@ -193,17 +221,16 @@
       left: 0;
       z-index: 1;
       display: block;
-      width: 100%;
+      width: 100vw;
       height: auto;
       transform: rotate(180deg);
-      pointer-events: none;
     }
 
     .about {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       min-height: 72vh;
-      padding: 120px 0;
+      padding: 100px 0;
       background: linear-gradient(120deg, rgba(18, 6, 7, 0.94), rgba(44, 11, 12, 0.82) 52%, rgba(8, 8, 8, 0.92));
     }
 
@@ -218,44 +245,51 @@
 
     .about-title-image {
       position: absolute;
-      top: 24px;
+      top: 18px;
       left: 24px;
       z-index: 2;
-      width: min(225px, calc(100% - 48px));
+      width: min(225px, calc(100% - 36px));
       height: auto;
     }
 
     .contacts-title-image {
       position: absolute;
-      top: 24px;
+      top: 18px;
       left: 24px;
       z-index: 2;
-      width: min(225px, calc(100% - 48px));
+      width: min(225px, calc(100% - 36px));
       height: auto;
     }
 
-    .about-top-gradient,
-    .about-bottom-gradient,
-    .contacts-top-gradient,
-    .contacts-bottom-gradient {
+    .about-top-gradient {
       position: absolute;
+      top: 0;
       left: 0;
+      z-index: 1;
+      display: block;
       width: 100%;
       height: auto;
-      z-index: 1;
-      pointer-events: none;
+      transform: rotate(180deg);
     }
-    .about-top-gradient, .contacts-top-gradient { top: 0; transform: rotate(180deg); }
-    .about-bottom-gradient, .contacts-bottom-gradient { bottom: 0; }
+
+    .about-bottom-gradient {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
     .about-grid {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 60px;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 9vw;
       align-items: start;
-      padding-top: 40px;
     }
 
     .about-titles-wrap {
@@ -266,7 +300,7 @@
 
     .about h2 {
       margin: 0;
-      font-size: clamp(2.2rem, 4.5vw, 4.8rem);
+      font-size: clamp(2.4rem, 5vw, 5.2rem);
       font-weight: 400;
       line-height: 0.95;
       text-transform: uppercase;
@@ -289,6 +323,7 @@
       text-transform: uppercase;
     }
 
+    /* Галерея у стовпчик у їх природному (орігінальному) розмірі */
     .about-gallery {
       display: flex;
       flex-direction: column;
@@ -304,17 +339,28 @@
       border: 1px solid rgba(242, 238, 232, 0.15);
       background: rgba(20, 10, 11, 0.8);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      max-width: 100%;
+      transition: transform 350ms cubic-bezier(0.25, 1, 0.5, 1), border-color 350ms ease;
+    }
+
+    .about-gallery-item:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(170, 86, 83, 0.6);
     }
 
     .about-gallery-img {
-      width: 100%;
-      max-width: 320px;
+      width: auto;
       height: auto;
+      max-width: 100%;
       display: block;
+      transition: transform 400ms ease;
+    }
+
+    .about-gallery-item:hover .about-gallery-img {
+      transform: scale(1.03);
     }
 
     .about-copy {
+      max-width: 600px;
       color: var(--muted);
       font-size: 16px;
       line-height: 1.7;
@@ -328,7 +374,9 @@
       color: var(--muted);
     }
 
-    .about-copy li { margin-bottom: 6px; }
+    .about-copy li {
+      margin-bottom: 6px;
+    }
 
     .contacts {
       position: relative;
@@ -337,7 +385,7 @@
       align-items: center;
       overflow: hidden;
       background: linear-gradient(120deg, #080808, #26090b 58%, #080808);
-      padding: 140px 0;
+      padding: 120px 0;
     }
 
     .contacts::before {
@@ -348,19 +396,40 @@
       opacity: 0.28;
     }
 
+    .contacts-top-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: rotate(180deg);
+    }
+
+    .contacts-bottom-gradient {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .contacts-content {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 60px;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 9vw;
       align-items: start;
-      padding-top: 40px;
     }
 
     .contacts h2 {
       margin: 0;
-      font-size: clamp(2.2rem, 4.5vw, 4.8rem);
+      font-size: clamp(2.4rem, 5vw, 5.2rem);
       font-weight: 400;
       line-height: 0.95;
       text-transform: uppercase;
@@ -372,7 +441,7 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
-      width: 100%;
+      max-width: 560px;
     }
 
     .contact-block {
@@ -383,7 +452,9 @@
       border-bottom: 1px solid rgba(242, 238, 232, 0.2);
     }
 
-    .contact-block:last-child { border-bottom: none; }
+    .contact-block:last-child {
+      border-bottom: none;
+    }
 
     .contacts-list a {
       color: var(--cream);
@@ -392,7 +463,6 @@
       letter-spacing: 0.12em;
       text-decoration: none;
       transition: color 180ms ease;
-      word-break: break-word;
     }
 
     .contacts-list a:hover,
@@ -401,16 +471,15 @@
     .contact-email {
       color: var(--cream) !important;
       font-family: Arial, sans-serif !important;
-      font-size: clamp(14px, 2vw, 16px) !important;
+      font-size: 16px !important;
       letter-spacing: 0.12em !important;
       text-decoration: none !important;
-      word-break: break-all;
+      text-transform: none !important;
     }
 
     .festival-logo-link {
       display: inline-block;
       width: 180px;
-      max-width: 100%;
       margin-bottom: 8px;
     }
 
@@ -418,6 +487,12 @@
       width: 100%;
       height: auto;
       display: block;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .festival-logo-link:hover .festival-logo-img {
+      transform: translateY(-2px);
+      opacity: 0.85;
     }
 
     .festival-text {
@@ -427,7 +502,6 @@
       color: var(--muted);
       margin: 0;
       white-space: pre-line;
-      word-break: break-word;
     }
 
     .email-note {
@@ -439,9 +513,46 @@
       margin-top: 4px;
     }
 
+    @media (max-width: 760px) {
+      .container { width: min(100% - 36px, 1250px); }
+      .navigation {
+        display: flex;
+        top: 22px;
+        right: 12px;
+        width: calc(100% - 92px);
+        gap: 8px;
+      }
+      .navigation a {
+        min-width: 0;
+        font-size: 8px;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+      .navigation-decoration {
+        top: 46px;
+        right: 12px;
+        width: calc(100% - 24px);
+      }
+      .social-icons-group {
+        top: 72px;
+        right: 12px;
+        width: calc(100% - 24px);
+      }
+      .language-switch { top: 20px; left: 12px; }
+      .language-switch button { min-width: 27px; padding: 4px 5px; }
+      .hero { min-height: 90vh; background-position: 60% center; }
+      .hero-content { padding-bottom: 5vh; }
+      .hero-logo { max-width: 100%; }
+      .about { padding: 150px 0 72px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-copy { font-size: 15px; }
+      .contacts { min-height: 80vh; padding-top: 150px; }
+      .contacts-content { grid-template-columns: 1fr; gap: 40px; }
+    }
+
     #recordings {
       min-height: 100vh !important;
-      padding: 140px 0 100px !important;
+      padding: 160px 0 100px !important;
       overflow: hidden;
     }
 
@@ -449,8 +560,8 @@
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 50px;
       align-items: center;
       margin-top: 40px;
     }
@@ -459,60 +570,80 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      width: 100%;
     }
 
     .news-decoration-img {
       width: 100%;
-      max-width: 280px;
       height: auto;
       display: block;
     }
 
     .news-scroll-container {
       position: relative;
-      height: 240px;
+      height: 220px;
       overflow-y: auto;
-      padding-right: 8px;
+      padding-right: 12px;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      scroll-behavior: smooth;
     }
 
-    .news-scroll-container::-webkit-scrollbar { width: 4px; }
-    .news-scroll-container::-webkit-scrollbar-track { background: rgba(242, 238, 232, 0.05); }
-    .news-scroll-container::-webkit-scrollbar-thumb { background: rgba(242, 238, 232, 0.3); border-radius: 4px; }
+    .news-scroll-container::-webkit-scrollbar {
+      width: 4px;
+    }
+    .news-scroll-container::-webkit-scrollbar-track {
+      background: rgba(242, 238, 232, 0.05);
+      border-radius: 4px;
+    }
+    .news-scroll-container::-webkit-scrollbar-thumb {
+      background: rgba(242, 238, 232, 0.3);
+      border-radius: 4px;
+      transition: background 200ms ease;
+    }
+    .news-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: var(--cream);
+    }
 
     .news-card {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
       background: rgba(20, 10, 11, 0.65);
       border: 1px solid rgba(242, 238, 232, 0.12);
       border-radius: 12px;
-      padding: 14px;
+      padding: 16px;
       cursor: pointer;
-      transition: all 350ms ease;
+      transition: all 350ms cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
     }
 
     .news-card:hover {
       border-color: rgba(242, 238, 232, 0.35);
       background: rgba(35, 15, 17, 0.85);
+      transform: translateX(4px);
     }
 
     .news-card.active {
       border-color: #aa5653;
       background: rgba(50, 16, 18, 0.95);
       box-shadow: 0 8px 32px rgba(101, 13, 18, 0.3);
+      transform: scale(1.02) translateX(6px);
     }
 
     .news-card-img {
-      width: 90px;
-      height: 70px;
+      width: 110px;
+      height: 80px;
       object-fit: cover;
+      object-position: center;
       border-radius: 8px;
       flex-shrink: 0;
       background: #222;
+      transition: transform 350ms ease;
+    }
+
+    .news-card.active .news-card-img {
+      transform: scale(1.05);
     }
 
     .news-card-info {
@@ -520,7 +651,6 @@
       flex-direction: column;
       gap: 6px;
       flex-grow: 1;
-      min-width: 0;
     }
 
     .news-card-date {
@@ -533,7 +663,7 @@
 
     .news-card-title {
       font-family: Georgia, serif;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.3;
       color: var(--cream);
       margin: 0;
@@ -547,27 +677,34 @@
       background: rgba(14, 7, 8, 0.85);
       border: 1px solid rgba(242, 238, 232, 0.15);
       border-radius: 16px;
-      padding: 28px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 20px;
       position: relative;
       backdrop-filter: blur(10px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      min-height: 380px;
+      min-height: 400px;
       justify-content: space-between;
+      animation: fadeIn 400ms ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .news-detail-content {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
     .news-detail-img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
+      object-position: center;
       border-radius: 10px;
       background: #1a1a1a;
     }
@@ -583,7 +720,7 @@
 
     .news-detail-title {
       font-family: Georgia, serif;
-      font-size: 20px;
+      font-size: 24px;
       line-height: 1.2;
       color: var(--cream);
       margin: 0;
@@ -592,7 +729,7 @@
     .news-detail-text {
       font-family: Georgia, serif;
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--muted);
       margin: 0;
     }
@@ -600,7 +737,6 @@
     .news-detail-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
       align-self: flex-start;
       padding: 11px 22px;
@@ -614,94 +750,22 @@
       text-transform: uppercase;
       border-radius: 4px;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: background 200ms ease;
+      transition: background 200ms ease, transform 200ms ease;
     }
 
-    .news-detail-link:hover { background: var(--wine-light); }
-
-    /* Мобільне меню гамбургер (для екранів менше 850px) */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: 1px solid rgba(242, 238, 232, 0.4);
-      color: var(--cream);
-      padding: 8px 12px;
-      cursor: pointer;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      z-index: 30;
+    .news-detail-link:hover {
+      background: var(--wine-light);
+      transform: translateY(-2px);
     }
 
-    @media (max-width: 950px) {
-      .container { width: min(100% - 32px, 1250px); }
-      .about-grid, .contacts-content, .news-wrapper {
+    @media (max-width: 900px) {
+      .news-wrapper {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
       }
-      .about { padding: 120px 0 80px; }
-      .contacts { padding: 120px 0 80px; }
-      #recordings { padding: 120px 0 80px !important; }
-      
-      .menu-toggle { display: block; }
-
-      .navigation-wrapper {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background: rgba(10, 5, 6, 0.98);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 40px 30px;
-        gap: 24px;
-        transition: right 300ms ease-in-out;
-        z-index: 28;
-        box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+      .news-scroll-container {
+        height: 220px;
       }
-
-      .navigation-wrapper.open {
-        right: 0;
-      }
-
-      .navigation {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        width: 100%;
-      }
-
-      .navigation a {
-        font-size: 14px;
-      }
-
-      .navigation-decoration {
-        display: none;
-      }
-
-      .social-icons-group {
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 10px;
-      }
-
-      .social-icon {
-        width: 26px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .hero-content { padding-bottom: 6vh; }
-      .about-gallery-img { max-width: 100%; }
-      .news-card { flex-direction: column; align-items: flex-start; }
-      .news-card-img { width: 100%; height: 120px; }
     }
   </style>
 </head>
@@ -713,46 +777,40 @@
         <button id="en-button" type="button">EN</button>
         <button id="ua-button" class="active" type="button">UA</button>
       </div>
-
       <div class="container">
         <header class="topbar">
-          <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-label="Відкрити меню">Меню</button>
+          <nav class="navigation" id="main-navigation" aria-label="Головна навігація">
+            <a href="#about" id="about-link">Про мене</a>
+            <a href="#contacts" id="contacts-link">Контакти</a>
+            <a href="#recordings" id="music-link">Новини</a>
+            <a href="#concerts" id="concerts-link">Концерти</a>
+          </nav>
+          <img class="navigation-decoration" src="MiniDesign1.png" alt="">
           
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <nav class="navigation" id="main-navigation" aria-label="Головна навігація">
-              <a href="#about" id="about-link" class="nav-close-link">Про мене</a>
-              <a href="#contacts" id="contacts-link" class="nav-close-link">Контакти</a>
-              <a href="#recordings" id="music-link" class="nav-close-link">Новини</a>
-              <a href="#concerts" id="concerts-link" class="nav-close-link">Концерти</a>
-            </nav>
-            <img class="navigation-decoration" src="MiniDesign1.png" alt="">
-            
-            <div class="social-icons-group">
-              <a href="https://www.youtube.com/@Hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="YouTubeIcon.png" alt="YouTube">
-              </a>
-              <a href="https://www.tiktok.com/@hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="TikTokIcon.png" alt="TikTok">
-              </a>
-              <a href="https://itunes.apple.com/album/id/1613936663" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="MusicIcon.png" alt="Music">
-              </a>
-              <a href="https://open.spotify.com/album/6V7LOiT34e0nqXaGkjG51h" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="SpotifyIkon.png" alt="Spotify">
-              </a>
-              <a href="https://facebook.com/share/188FoynMZ8/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="FaceBookIcon.png" alt="Facebook">
-              </a>
-              <a href="https://www.instagram.com/oleksandrhrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="InstagramIcon.png" alt="Instagram">
-              </a>
-              <a href="https://music.amazon.com/artists/B09TB76X8V/alexander-hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img class="social-icon" src="AmazonIcon.png" alt="Amazon">
-              </a>
-            </div>
+          <div class="social-icons-group">
+            <a href="https://www.youtube.com/@Hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="YouTubeIcon.png" alt="YouTube">
+            </a>
+            <a href="https://www.tiktok.com/@hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="TikTokIcon.png" alt="TikTok">
+            </a>
+            <a href="https://itunes.apple.com/album/id/1613936663" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="MusicIcon.png" alt="Music">
+            </a>
+            <a href="https://open.spotify.com/album/6V7LOiT34e0nqXaGkjG51h" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="SpotifyIkon.png" alt="Spotify">
+            </a>
+            <a href="https://facebook.com/share/188FoynMZ8/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="FaceBookIcon.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/oleksandrhrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="InstagramIcon.png" alt="Instagram">
+            </a>
+            <a href="https://music.amazon.com/artists/B09TB76X8V/alexander-hrustevich" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img class="social-icon" src="AmazonIcon.png" alt="Amazon">
+            </a>
           </div>
         </header>
-
         <div class="hero-content">
           <img class="hero-logo" src="LogoMenuUA.png" alt="Олександр Хрустевич" id="hero-logo">
           <img class="hero-gradient" src="Rectangle 4 (1).png" alt="">
@@ -891,24 +949,6 @@ info (at) nmgeneration.com</p>
     let currentLang = 'ua';
     let activeNewsIndex = 0;
 
-    // Мобільне меню toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const navWrapper = document.getElementById('navigation-wrapper');
-    
-    menuToggle.addEventListener('click', () => {
-      const isOpen = navWrapper.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', isOpen);
-      menuToggle.textContent = isOpen ? 'Закрити' : 'Меню';
-    });
-
-    document.querySelectorAll('.nav-close-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navWrapper.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.textContent = 'Меню';
-      });
-    });
-
     function renderNewsList() {
       const container = document.getElementById('news-list-container');
       const data = newsData[currentLang];
@@ -917,6 +957,7 @@ info (at) nmgeneration.com</p>
       data.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = `news-card ${index === activeNewsIndex ? 'active' : ''}`;
+        card.setAttribute('data-id', index);
         card.innerHTML = `
           <img class="news-card-img" src="${item.img}" alt="${item.title}">
           <div class="news-card-info">
@@ -934,8 +975,12 @@ info (at) nmgeneration.com</p>
 
     function updateActiveNews() {
       const data = newsData[currentLang][activeNewsIndex];
-      const panel = document.getElementById('news-detail-panel');
       
+      const panel = document.getElementById('news-detail-panel');
+      panel.style.animation = 'none';
+      panel.offsetHeight;
+      panel.style.animation = 'fadeIn 400ms ease';
+
       document.getElementById('detail-img').src = data.img;
       document.getElementById('detail-date').textContent = data.date;
       document.getElementById('detail-title').textContent = data.title;
@@ -958,6 +1003,7 @@ info (at) nmgeneration.com</p>
     const translations = {
       ua: {
         pageTitle: 'Олександр Хрустевич | Музикант',
+        brand: 'Олександр Хрустевич',
         aboutLink: 'Про мене',
         musicLink: 'Новини',
         concertsLink: 'Концерти',
@@ -965,6 +1011,7 @@ info (at) nmgeneration.com</p>
         contactsTitle: "Будьмо <span>на</span><br>зв'язку",
         emailNoteText: 'Особиста електронна пошта артиста',
         backHomeLink: 'На головну',
+        navigationLabel: 'Головна навігація',
         aboutTitle: 'Музика, <span>що</span><br>залишається',
         subtitles: ['Заслужений артист України', 'Лауреат міжнародних конкурсів'],
         bioListTitle: 'Лауреат Міжнародних конкурсів:',
@@ -978,7 +1025,7 @@ info (at) nmgeneration.com</p>
           "Широке визнання Олександр отримав після розміщення в інтернеті свого власного відео – на сьогодні його переглянуло вже більше 17 мільйонів користувачів зі всього світу."
         ],
         competitions: [
-          "«Golden Accordion» (Нью-Йорк, США 3-премія);",
+          "«Golden Accordion» (New York, USA 3-премія);",
           "«Грай мій баян» (Ржев, Росія 1-премія);",
           "«Від бароко до джазу» (Вроцлав, Польща 1-премія);",
           "«Кубок Кривбасу» (Кривий Ріг, Україна 2-премія);",
@@ -987,6 +1034,7 @@ info (at) nmgeneration.com</p>
       },
       en: {
         pageTitle: 'Oleksandr Khrustevych | Musician',
+        brand: 'Oleksandr Khrustevych',
         aboutLink: 'About me',
         musicLink: 'News',
         concertsLink: 'Concerts',
@@ -994,6 +1042,7 @@ info (at) nmgeneration.com</p>
         contactsTitle: "Let's stay <span>in</span><br>touch",
         emailNoteText: "Artist's personal email",
         backHomeLink: 'Back home',
+        navigationLabel: 'Main navigation',
         aboutTitle: 'Music <span>that</span><br>remains',
         subtitles: ['Honored Artist of Ukraine', 'Laureate of international competitions'],
         bioListTitle: 'Laureate of international competitions:',
@@ -1017,53 +1066,62 @@ info (at) nmgeneration.com</p>
     };
 
     function setLanguage(language) {
-      currentLang = language;
-      const content = translations[language];
-      document.documentElement.lang = language;
-      document.title = content.pageTitle;
-      document.getElementById('about-link').textContent = content.aboutLink;
-      document.getElementById('music-link').textContent = content.musicLink;
-      document.getElementById('concerts-link').textContent = content.concertsLink;
-      document.getElementById('contacts-link').textContent = content.contactsLink;
-      document.getElementById('contacts-title').innerHTML = content.contactsTitle;
-      document.getElementById('email-note-text').textContent = content.emailNoteText;
-      document.getElementById('back-home-link').textContent = content.backHomeLink;
-      document.getElementById('hero-logo').src = language === 'en' ? 'LogoMenuEN.png' : 'LogoMenuUA.png';
-      document.getElementById('hero-logo').alt = language === 'en' ? 'Oleksandr Khrustevych' : 'Олександр Хрустевич';
-      document.getElementById('about-title').innerHTML = content.aboutTitle;
-      document.getElementById('sub-honor').textContent = content.subtitles[0];
-      document.getElementById('sub-laureate').textContent = content.subtitles[1];
-      document.getElementById('about-title-image').src = language === 'en' ? 'AboutMeEN.png' : 'AboutMeUA.png';
-      document.getElementById('about-title-image').alt = language === 'en' ? 'About me' : 'Про мене';
-      document.getElementById('contacts-title-image').src = language === 'en' ? 'ContactsEN.png' : 'ContactsUA.png';
-      document.getElementById('contacts-title-image').alt = language === 'en' ? 'Contacts' : 'Контакти';
-      document.getElementById('recordings-title-image').src = language === 'en' ? 'NewsEN.png' : 'NewsUA.png';
-      document.getElementById('recordings-title-image').alt = language === 'en' ? 'News' : 'Новини';
+      try {
+        currentLang = language;
+        const content = translations[language];
+        document.documentElement.lang = language;
+        document.title = content.pageTitle;
+        document.getElementById('about-link').textContent = content.aboutLink;
+        document.getElementById('music-link').textContent = content.musicLink;
+        document.getElementById('concerts-link').textContent = content.concertsLink;
+        document.getElementById('contacts-link').textContent = content.contactsLink;
+        document.getElementById('contacts-title').innerHTML = content.contactsTitle;
+        document.getElementById('email-note-text').textContent = content.emailNoteText;
+        document.getElementById('back-home-link').textContent = content.backHomeLink;
+        document.getElementById('main-navigation').setAttribute('aria-label', content.navigationLabel);
+        document.getElementById('hero-logo').src = language === 'en' ? 'LogoMenuEN.png' : 'LogoMenuUA.png';
+        document.getElementById('hero-logo').alt = language === 'en' ? 'Oleksandr Khrustevych' : 'Олександр Хрустевич';
+        document.getElementById('about-title').innerHTML = content.aboutTitle;
+        document.getElementById('sub-honor').textContent = content.subtitles[0];
+        document.getElementById('sub-laureate').textContent = content.subtitles[1];
+        document.getElementById('about-title-image').src = language === 'en' ? 'AboutMeEN.png' : 'AboutMeUA.png';
+        document.getElementById('about-title-image').alt = language === 'en' ? 'About me' : 'Про мене';
+        document.getElementById('contacts-title-image').src = language === 'en' ? 'ContactsEN.png' : 'ContactsUA.png';
+        document.getElementById('contacts-title-image').alt = language === 'en' ? 'Contacts' : 'Контакти';
+        document.getElementById('recordings-title-image').src = language === 'en' ? 'NewsEN.png' : 'NewsUA.png';
+        document.getElementById('recordings-title-image').alt = language === 'en' ? 'News' : 'Новини';
 
-      const musicContainer = document.getElementById('music');
-      musicContainer.innerHTML = `
-        <p>${content.bio[0]}</p>
-        <p>${content.bio[1]}</p>
-        <p>${content.bio[2]}</p>
-        <p>${content.bio[3]}</p>
-        <p><strong>${content.bioListTitle}</strong></p>
-        <ul>
-          ${content.competitions.map(item => `<li>${item}</li>`).join('')}
-        </ul>
-        <p>${content.bio[4]}</p>
-        <p>${content.bio[5]}</p>
-        <p>${content.bio[6]}</p>
-      `;
+        const musicContainer = document.getElementById('music');
+        musicContainer.innerHTML = `
+          <p>${content.bio[0]}</p>
+          <p>${content.bio[1]}</p>
+          <p>${content.bio[2]}</p>
+          <p>${content.bio[3]}</p>
+          <p><strong>${content.bioListTitle}</strong></p>
+          <ul>
+            ${content.competitions.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+          <p>${content.bio[4]}</p>
+          <p>${content.bio[5]}</p>
+          <p>${content.bio[6]}</p>
+        `;
 
-      document.getElementById('en-button').classList.toggle('active', language === 'en');
-      document.getElementById('ua-button').classList.toggle('active', language === 'ua');
-      
-      renderNewsList();
-      updateActiveNews();
+        document.getElementById('en-button').classList.toggle('active', language === 'en');
+        document.getElementById('ua-button').classList.toggle('active', language === 'ua');
+        
+        renderNewsList();
+        updateActiveNews();
+      } catch (error) {
+        console.error('Error in setLanguage:', error);
+      }
     }
 
-    document.getElementById('en-button').addEventListener('click', () => setLanguage('en'));
-    document.getElementById('ua-button').addEventListener('click', () => setLanguage('ua'));
+    document.getElementById('en-button').addEventListener('click', function() {
+      setLanguage('en');
+    });
+    document.getElementById('ua-button').addEventListener('click', function() {
+      setLanguage('ua');
+    });
 
     renderNewsList();
     updateActiveNews();
